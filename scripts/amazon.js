@@ -48,7 +48,7 @@ function renderProducts (products) {
                         Added
                      </div>
 
-                     <button data-product-name="${product.name}" class="add-to-cart-button button-primary js-add-to-cart"> Add to Cart</button>
+                     <button data-product-id="${product.id}" class="add-to-cart-button button-primary js-add-to-cart"> Add to Cart</button>
 
                 </div>
         `
@@ -59,55 +59,35 @@ function renderProducts (products) {
     // Add to cart function
     const addToCart = document.querySelectorAll('.js-add-to-cart');
 
-    addToCart.forEach(btn => {
-        btn.addEventListener('click', () => {
-            console.log(btn.dataset.productName);
-        })
-    })
+   addToCart.forEach((btn) => {
+
+    btn.addEventListener('click', () => {
+        const productId = btn.dataset.productId;
+        let mathcingItem;
+
+        cart.forEach((item) => {
+            if (productId === item.productId)
+            {
+                mathcingItem = item
+            }
+        });
+
+        if (mathcingItem)
+        {
+            mathcingItem.quantity += 1;
+        }else{
+            cart.push({
+                productId: productId,
+                quantity: 1
+            });
+        }
+
+        console.log(cart)
+
+    });
 
 
+   });
 }
 
 renderProducts(products);
-
-
-// <div class="product-container">
-//             
-//             <div class="product-rating-container">
-//                 <img class="product-rating-stars"
-//                 src="images/ratings/rating-${product.rating.stars * 10}.png">
-//                 <div class="product-rating-count link-primary">
-//                 ${product.rating.count}
-//                 </div>
-//             </div>
-
-//             <div class="product-price">
-//                 $${(product.priceCents / 100).toFixed(2)}
-//             </div>
-
-//             <div class="product-quantity-container">
-//                 <select>
-//                 <option selected value="1">1</option>
-//                 <option value="2">2</option>
-//                 <option value="3">3</option>
-//                 <option value="4">4</option>
-//                 <option value="5">5</option>
-//                 <option value="6">6</option>
-//                 <option value="7">7</option>
-//                 <option value="8">8</option>
-//                 <option value="9">9</option>
-//                 <option value="10">10</option>
-//                 </select>
-//             </div>
-
-//             <div class="product-spacer"></div>
-
-//             <div class="added-to-cart">
-//                 
-//             </div>
-
-//             <button data-product-name="${product.name}" class="add-to-cart-button button-primary js-add-to-cart">
-//                 Add to Cart
-//             </button>
-//             </div>` ;
-
